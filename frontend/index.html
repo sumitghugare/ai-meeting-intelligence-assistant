@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VOXEL AI — Meeting Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- AMBIENT BACKGROUND -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="app">
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="sidebar">
+
+      <!-- LOGO -->
+      <div class="logo">
+        <div class="logo-mark">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="8" fill="url(#logoGrad)"/>
+            <path d="M8 14 L14 8 L20 14 L14 20 Z" fill="white" opacity="0.9"/>
+            <path d="M11 14 L14 11 L17 14 L14 17 Z" fill="white"/>
+            <defs>
+              <linearGradient id="logoGrad" x1="0" y1="0" x2="28" y2="28">
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-name">VOXEL AI</span>
+          <span class="logo-sub">Meeting Intelligence</span>
+        </div>
+      </div>
+
+      <!-- NAV -->
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-section="analysis">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M18 9l-5 5-2-2-4 4"/></svg>
+          <span>Analysis</span>
+        </a>
+        <a href="#" class="nav-item" data-section="transcript">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M7 16h5"/></svg>
+          <span>Transcript</span>
+        </a>
+        <a href="#" class="nav-item" data-section="actions">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          <span>Actions</span>
+        </a>
+        <a href="#" class="nav-item" data-section="chat">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          <span>AI Chat</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-divider"></div>
+
+      <!-- INPUT PANEL -->
+      <div class="input-panel">
+        <div class="input-label">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.41 19.1C5.12 19.56 12 19.56 12 19.56s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          Meeting Source
+        </div>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="sourceInput"
+            class="source-input"
+            placeholder="Paste YouTube URL or audio link…"
+          />
+        </div>
+
+        <div class="lang-row">
+          <span class="lang-label">Language</span>
+          <select class="lang-select" id="langSelect">
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="german">German</option>
+            <option value="hindi">Hindi</option>
+          </select>
+        </div>
+
+        <button class="run-btn" id="runBtn" onclick="runAnalysis()">
+          <span class="run-btn-icon">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="run-btn-text">Run Analysis</span>
+          <span class="run-btn-shimmer"></span>
+        </button>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <!-- STATUS INDICATOR -->
+      <div class="status-panel" id="statusPanel">
+        <div class="status-dot idle" id="statusDot"></div>
+        <span class="status-text" id="statusText">Ready to analyze</span>
+      </div>
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="sidebar-footer">
+        <div class="footer-badge">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Powered by Claude AI
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ===================== MAIN ===================== -->
+    <main class="main">
+
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <div class="breadcrumb">Dashboard</div>
+          <h1 class="meeting-title" id="meetingTitle">AI Meeting Dashboard</h1>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-chip">
+            <span class="chip-dot"></span>
+            <span>Live Analysis</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTIONS WRAPPER -->
+      <div class="sections">
+
+        <!-- ========= ANALYSIS SECTION ========= -->
+        <section class="content-section" id="section-analysis">
+
+          <!-- METRICS ROW -->
+          <div class="metrics-row">
+            <div class="metric-card" id="metric-duration">
+              <div class="metric-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-value" id="durationVal">—</span>
+                <span class="metric-label">Duration</span>
+              </div>
+            </div>
+            <div class="metric-card" id="metric-actions">
+              <div class="metric-icon accent-green">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-value" id="actionsCount">—</span>
+                <span class="metric-label">Action Items</span>
+              </div>
+            </div>
+            <div class="metric-card" id="metric-decisions">
+              <div class="metric-icon accent-amber">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-value" id="decisionsCount">—</span>
+                <span class="metric-label">Key Decisions</span>
+              </div>
+            </div>
+            <div class="metric-card" id="metric-questions">
+              <div class="metric-icon accent-purple">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <div class="metric-info">
+                <span class="metric-value" id="questionsCount">—</span>
+                <span class="metric-label">Open Questions</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUMMARY CARD -->
+          <div class="glass-card summary-card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <div class="card-icon indigo">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>
+                </div>
+                <h3 class="card-title">Executive Summary</h3>
+              </div>
+              <div class="card-badge">AI Generated</div>
+            </div>
+            <div class="card-body">
+              <p id="summary" class="summary-text placeholder-text">
+                Run an analysis to generate an AI-powered executive summary of your meeting.
+              </p>
+            </div>
+          </div>
+
+          <!-- TWO COLUMN -->
+          <div class="two-col">
+
+            <!-- ACTION ITEMS -->
+            <div class="glass-card">
+              <div class="card-header">
+                <div class="card-header-left">
+                  <div class="card-icon green">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                  </div>
+                  <h3 class="card-title">Action Items</h3>
+                </div>
+                <span class="count-badge green-badge" id="actionsBadge">—</span>
+              </div>
+              <div class="card-body">
+                <ul class="item-list" id="actions">
+                  <li class="item-placeholder">Waiting for analysis…</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- DECISIONS -->
+            <div class="glass-card">
+              <div class="card-header">
+                <div class="card-header-left">
+                  <div class="card-icon amber">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  </div>
+                  <h3 class="card-title">Key Decisions</h3>
+                </div>
+                <span class="count-badge amber-badge" id="decisionsBadge">—</span>
+              </div>
+              <div class="card-body">
+                <ul class="item-list" id="decisions">
+                  <li class="item-placeholder">Waiting for analysis…</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- OPEN QUESTIONS -->
+          <div class="glass-card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <div class="card-icon purple">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <h3 class="card-title">Open Questions</h3>
+              </div>
+              <span class="count-badge purple-badge" id="questionsBadge">—</span>
+            </div>
+            <div class="card-body">
+              <ul class="item-list horizontal" id="questions">
+                <li class="item-placeholder">Waiting for analysis…</li>
+              </ul>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ========= TRANSCRIPT SECTION ========= -->
+        <section class="content-section" id="section-transcript">
+          <div class="glass-card transcript-card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <div class="card-icon indigo">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h7M7 16h5"/></svg>
+                </div>
+                <h3 class="card-title">Full Transcript</h3>
+              </div>
+              <button class="copy-btn" onclick="copyTranscript()" title="Copy transcript">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                Copy
+              </button>
+            </div>
+            <div class="card-body">
+              <div class="transcript-body" id="transcript">
+                <span class="placeholder-text">Transcript will appear here after analysis.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========= ACTIONS SECTION ========= -->
+        <section class="content-section" id="section-actions" style="display:none">
+          <p style="color:var(--text-muted); margin-bottom:1.5rem;">Scroll up to view action items, decisions, and open questions.</p>
+        </section>
+
+        <!-- ========= CHAT SECTION ========= -->
+        <section class="content-section" id="section-chat">
+          <div class="glass-card chat-card">
+            <div class="card-header">
+              <div class="card-header-left">
+                <div class="card-icon purple">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </div>
+                <h3 class="card-title">AI Assistant</h3>
+              </div>
+              <div class="chat-status">
+                <span class="chat-status-dot"></span>
+                <span>Online</span>
+              </div>
+            </div>
+            <div class="chat-body" id="chatBody">
+              <div class="chat-welcome">
+                <div class="welcome-icon">
+                  <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                </div>
+                <p class="welcome-title">Ask anything about your meeting</p>
+                <p class="welcome-sub">Run an analysis first, then ask questions like "What were the main decisions?" or "Who is responsible for the API redesign?"</p>
+                <div class="welcome-chips">
+                  <button class="welcome-chip" onclick="quickQuestion('What were the main decisions made?')">Main decisions</button>
+                  <button class="welcome-chip" onclick="quickQuestion('Who has action items?')">Action owners</button>
+                  <button class="welcome-chip" onclick="quickQuestion('What are the open questions?')">Open questions</button>
+                </div>
+              </div>
+            </div>
+            <div class="chat-input-area">
+              <div class="chat-input-row">
+                <input
+                  type="text"
+                  id="chatInput"
+                  class="chat-input"
+                  placeholder="Ask anything about the meeting…"
+                />
+                <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-modal">
+      <div class="loading-animation">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring delay-1"></div>
+        <div class="pulse-ring delay-2"></div>
+        <div class="pulse-center">
+          <svg width="24" height="24" fill="none" viewBox="0 0 28 28">
+            <path d="M8 14 L14 8 L20 14 L14 20 Z" fill="#6366f1" opacity="0.9"/>
+            <path d="M11 14 L14 11 L17 14 L14 17 Z" fill="#6366f1"/>
+          </svg>
+        </div>
+      </div>
+      <p class="loading-stage" id="loadingStage">Initializing analysis…</p>
+      <div class="loading-progress">
+        <div class="loading-bar" id="loadingBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

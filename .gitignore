@@ -1,1 +1,12 @@
 .env
+venv/
+__pycache__/
+.env
+vector_db/
+downloads/
+*.pyc
+*.wav
+*.mp4
+*.mkv
+*.webm
+*.m4a
